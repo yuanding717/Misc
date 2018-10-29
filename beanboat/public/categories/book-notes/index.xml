@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Book Notes on Bean Boat</title>
+    <link>https://omega-terrain-213602.appspot.com/categories/book-notes/</link>
+    <description>Recent content in Book Notes on Bean Boat</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 28 Sep 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://omega-terrain-213602.appspot.com/categories/book-notes/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Notes for CS166 and Introduction to Computer Security ch7</title>
+      <link>https://omega-terrain-213602.appspot.com/posts/notes_for_introduction_to_computer_security-ch7/</link>
+      <pubDate>Fri, 28 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://omega-terrain-213602.appspot.com/posts/notes_for_introduction_to_computer_security-ch7/</guid>
+      <description>&lt;h1 id=&#34;ch7-web-security&#34;&gt;CH7 - Web Security&lt;/h1&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Notes for CS166 and Introduction to Computer Security ch8</title>
+      <link>https://omega-terrain-213602.appspot.com/posts/notes_for_introduction_to_computer_security_ch8/</link>
+      <pubDate>Wed, 26 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://omega-terrain-213602.appspot.com/posts/notes_for_introduction_to_computer_security_ch8/</guid>
+      <description>&lt;h1 id=&#34;ch8-cryptography&#34;&gt;CH8 Cryptography&lt;/h1&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

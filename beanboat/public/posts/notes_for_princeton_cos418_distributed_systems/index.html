@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://omega-terrain-213602.appspot.com/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="notes_for_Princeton_COS418_Distributed_Systems"/>
+  <meta name="twitter:description" content="Notes for Princeton &lt;COS418 Distributed Systems&gt;"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@Minmin"/>
+  
+
+
+
+		
+		<meta name="author" content="Minmin">
+		<meta name="description" content="Just for fun">
+		<meta name="generator" content="Hugo 0.50-DEV" />
+		<title>notes_for_Princeton_COS418_Distributed_Systems &middot; Bean Boat</title>
+		<link rel="shortcut icon" href="https://omega-terrain-213602.appspot.com/images/favicon.ico">
+		<link rel="stylesheet" href="https://omega-terrain-213602.appspot.com/css/style.css">
+		<link rel="stylesheet" href="https://omega-terrain-213602.appspot.com/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://omega-terrain-213602.appspot.com/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://omega-terrain-213602.appspot.com/index.xml" rel="alternate" type="application/rss+xml" title="Bean Boat" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://omega-terrain-213602.appspot.com/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://omega-terrain-213602.appspot.com/posts'>Archive</a>
+	<a href='https://omega-terrain-213602.appspot.com/tags'>Tags</a>
+	<a href='https://omega-terrain-213602.appspot.com/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://omega-terrain-213602.appspot.com/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        notes_for_Princeton_COS418_Distributed_Systems
+                    </h1>
+                    <h2 class="headline">
+                    Oct 14, 2018 00:00
+                    · 951 words
+                    · 5 minute read
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="https://omega-terrain-213602.appspot.com/tags/distributed_systems">distributed_systems</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#rpc">RPC</a>
+<ul>
+<li><a href="#asynchronous-rpc">Asynchronous RPC</a></li>
+</ul></li>
+<li><a href="#clock-synchronization">Clock Synchronization</a>
+<ul>
+<li><a href="#cristian-s-algorithm">Cristian’s algorithm</a></li>
+<li><a href="#berkeley-algorithm">Berkeley Algorithm</a></li>
+<li><a href="#the-network-time-protocol-ntp">The Network Time Protocol (NTP)</a>
+<ul>
+<li><a href="#system-structure">System structure</a></li>
+<li><a href="#ntp-operation-server-selection">NTP operation: Server selection</a></li>
+</ul></li>
+<li><a href="#logical-time-lamport-clocks">Logical Time: Lamport clocks</a>
+<ul>
+<li><a href="#idea">Idea</a></li>
+<li><a href="#happens-before">&ldquo;happens-before&rdquo; (-&gt;)</a></li>
+<li><a href="#algorithm">Algorithm:</a></li>
+<li><a href="#total-ordered-multicasting-state-machine-replication">Total-ordered multicasting / state machine replication</a></li>
+</ul></li>
+<li><a href="#logical-time-vector-clocks">Logical Time: Vector clocks</a></li>
+</ul></li>
+<li><a href="#bayou-s-take-away-ideas">Bayou’s take-away ideas</a></li>
+<li><a href="#chandy-lamport-snapshot-algorithm">Chandy-Lamport snapshot algorithm</a></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    <h2 id="rpc">RPC</h2>
+
+<h3 id="asynchronous-rpc">Asynchronous RPC</h3>
+
+<p>Await RPC response in a separate thread
+Multiple ways to implement this:
+Pass a callback to RPC that will be invoked later
+Use channels to communicate RPC reply back to main thread
+</p>
+
+<h2 id="clock-synchronization">Clock Synchronization</h2>
+
+<h3 id="cristian-s-algorithm">Cristian’s algorithm</h3>
+
+<ul>
+<li>Client sends a request packet, timestamped with its local clock T1</li>
+<li>Server timestamps its receipt of the request T2 with its local clock</li>
+<li>Server sends a response packet with its local clock T3 and T2</li>
+<li>Client locally timestamps its receipt of the server’s response T4</li>
+<li>Client samples round trip time &delta; = &delta;req + &delta;resp = (T4 − T1) − (T3 − T2)</li>
+<li>Assume: &delta;req ≈ &delta;resp, client sets clock &lt;- T3 + &delta; * <sup>1</sup>&frasl;<sub>2</sub></li>
+</ul>
+
+<h3 id="berkeley-algorithm">Berkeley Algorithm</h3>
+
+<ul>
+<li>Assumes all machines have equally-accurate local clocks</li>
+<li>Obtains average from participating computers and synchronizes clocks to that average</li>
+</ul>
+
+<h3 id="the-network-time-protocol-ntp">The Network Time Protocol (NTP)</h3>
+
+<h4 id="system-structure">System structure</h4>
+
+<ul>
+<li>Servers and time sources are arranged in layers (strata)
+
+<ul>
+<li>Stratum 0: High-precision time sources themselves. E.g., atomic clocks, shortwave radio time receivers</li>
+<li>Stratum 1: NTP servers directly connected to Stratum 0</li>
+<li>Stratum 2: NTP servers that synchronize with Stratum 1 (Stratum 2 servers are clients of Stratum 1 servers)</li>
+<li>Stratum 3: NTP servers that synchronize with Stratum 2 (Stratum 3 servers are clients of Stratum 2 servers)</li>
+</ul></li>
+<li>Users’ computers synchronize with Stratum 3 servers</li>
+</ul>
+
+<h4 id="ntp-operation-server-selection">NTP operation: Server selection</h4>
+
+<ul>
+<li>Messages between an NTP client and server are exchanged in pairs: request and response, using Cristian’s algorithm</li>
+<li>For i-th message exchange with a particular server, calculate:
+
+<ul>
+<li>Clock offset &theta;i from client to server</li>
+<li>Round trip time &delta;i between client and server</li>
+</ul></li>
+<li>Over last eight exchanges with server k, the client computes its dispersion &sigma;k = max{i}&delta;i − min{i}&theta;i; Client uses the server with minimum dispersion</li>
+<li>Then uses a best estimate of clock offset</li>
+</ul>
+
+<h3 id="logical-time-lamport-clocks">Logical Time: Lamport clocks</h3>
+
+<h4 id="idea">Idea</h4>
+
+<p>Disregard the precise clock time. Instead, capture just a “happens before” relationship between a pair of events. I.E. for every event, assign it a time value C(a) on which all processes agree. If a &lt; b, then C(a) &lt; C(b)</p>
+
+<h4 id="happens-before">&ldquo;happens-before&rdquo; (-&gt;)</h4>
+
+<ul>
+<li>If same process and a occurs before b, then a -&gt; b</li>
+<li>If c is a message receipt of b, then b -&gt; c</li>
+<li>Unrelated events are concurrent, written as a || d</li>
+</ul>
+
+<h4 id="algorithm">Algorithm:</h4>
+
+<ul>
+<li>Before executing an event b, Ci &lt;- Ci + 1</li>
+<li>Send the local clock in the message m</li>
+<li>On process Pj receiving a message m, set Cj and receive event time C&copy; &lt;- 1 + max(Cj, C(m))</li>
+<li>Break ties by appending the process number to each event:
+
+<ul>
+<li>Process Pi timestamps event e with Ci(e).i</li>
+<li>C(a).i &lt; C(b).j when: C(a) &lt; C(b), or C(a) = C(b) and i &lt; j</li>
+</ul></li>
+</ul>
+
+<h4 id="total-ordered-multicasting-state-machine-replication">Total-ordered multicasting / state machine replication</h4>
+
+<ul>
+<li>On receiving an update from client, broadcast to others (including yourself)</li>
+<li>On receiving or processing an update:
+
+<ul>
+<li>a) Add it to your local queue, if received update</li>
+<li>b) Broadcast an acknowledgement message to every replica (including yourself), only from head of queue</li>
+</ul></li>
+<li>On receiving an acknowledgement, mark corresponding update acknowledged in your queue</li>
+<li>Remove and process updates everyone has ack’ed from head of queue</li>
+</ul>
+
+<h3 id="logical-time-vector-clocks">Logical Time: Vector clocks</h3>
+
+<ul>
+<li>Objective: Lamport clock timestamps do not capture causality. C(a) &lt; C(b) =&gt;  a -&gt; b or a || b</li>
+<li>Definition: a Vector Clock (VC) is a vector of integers, one entry for each process in the entire distributed system. Label event e with VC(e) = [c1, c2 …, cn]. Each entry ck is a count of events in process k that causally precede e.</li>
+<li>Update rules:
+
+<ul>
+<li>Initially, all vectors are [0, 0, …, 0]</li>
+<li>For each local event on process i, increment local entry ci</li>
+<li>If process j receives message with vector [d1, d2, …, dn]:</li>
+<li>Set each local entry ck = max{ck, dk}</li>
+<li>Increment local entry cj</li>
+</ul></li>
+<li>Compare:
+
+<ul>
+<li>V(a) = V(b) when ak = bk for all k</li>
+<li>V(a) &lt; V(b) when ak ≤ bk for all k and V(a) ≠ V(b)</li>
+<li>a || b if ai &lt; bi and aj &gt; bj, some i, j</li>
+</ul></li>
+<li>Capture causality:
+
+<ul>
+<li>V(a) &lt; V(b) then there is a chain of events linked by Happens-Before (-&gt;) between a and b</li>
+<li>V(a) || V(b) then there is no such chain of events between a and b</li>
+</ul></li>
+</ul>
+
+<h2 id="bayou-s-take-away-ideas">Bayou’s take-away ideas</h2>
+
+<ul>
+<li>Eventual consistency, eventually if updates stop, all replicas are the same</li>
+<li>Update functions for automatic applicationdriven conflict resolution</li>
+<li>Ordered update log is the real truth, not the DB</li>
+<li>Application of Lamport clocks for eventual consistency that respect causality</li>
+</ul>
+
+<h2 id="chandy-lamport-snapshot-algorithm">Chandy-Lamport snapshot algorithm</h2>
+
+<ul>
+<li>Intuition
+
+<ul>
+<li>Guarantee zero loss + zero duplication</li>
+<li>If you haven’t snapshotted your local state yet, do NOT record future messages you receive</li>
+<li>If you have snapshotted your local state, do record future messages you receive</li>
+</ul></li>
+<li>Key idea: Servers send marker messages to each other</li>
+<li>Marker messages:
+
+<ul>
+<li>mark the beginning of the snapshot process on the server</li>
+<li>act as a barrier (stopper) for recording messages</li>
+</ul></li>
+<li>Assumptions
+
+<ul>
+<li>There are no failures and all messages arrive intact and only once</li>
+<li>The communication channels are unidirectional and FIFO ordered</li>
+<li>There is a communication path between any two processes in the system</li>
+<li>Any process may initiate the snapshot algorithm</li>
+<li>The snapshot algorithm does not interfere with the normal execution of the processes</li>
+<li>Each process in the system records its local state and the state of its incoming channels</li>
+</ul></li>
+<li>Procedures
+
+<ul>
+<li>Starting the snapshot procedure on a server:</li>
+<li>Record local state</li>
+<li>Send marker messages on all outbound interfaces</li>
+<li>When you receive a marker message on an interface:</li>
+<li>If you haven’t started the snapshot procedure yet, record your local state and send marker messages on all outbound interfaces</li>
+<li>Stop recording messages you receive on this interface</li>
+<li>Start recording messages you receive on all other interfaces</li>
+<li>Terminate when all servers have received marker messages on all interfaces</li>
+</ul></li>
+</ul>
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fomega-terrain-213602.appspot.com%2fposts%2fnotes_for_princeton_cos418_distributed_systems%2f - notes_for_Princeton_COS418_Distributed_Systems by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://www.github.com/jinmmin">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2018 <i class="fa fa-heart" aria-hidden="true"></i> Minmin
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://omega-terrain-213602.appspot.com/js/jquery-3.3.1.min.js"></script>
+<script src="https://omega-terrain-213602.appspot.com/js/main.js"></script>
+<script src="https://omega-terrain-213602.appspot.com/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+
+    </body>
+</html>

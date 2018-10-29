@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 
+			
+  
+    <meta name="twitter:card" content="summary"/>
+    
+      <meta name="twitter:image" content="https://omega-terrain-213602.appspot.com/images/avatar.png" />
+    
+  
+  
+  <meta name="twitter:title" content="notes_for_computer_networking_a_topdown_approach"/>
+  <meta name="twitter:description" content="Notes for &lt;Computer Networking a Topdown Approach&gt;"/>
+  
+    <meta name="twitter:site" content="@your_twitter_id"/>
+  
+  
+  
+  
+    <meta name="twitter:creator" content="@Minmin"/>
+  
+
+
+
+		
+		<meta name="author" content="Minmin">
+		<meta name="description" content="Just for fun">
+		<meta name="generator" content="Hugo 0.50-DEV" />
+		<title>notes_for_computer_networking_a_topdown_approach &middot; Bean Boat</title>
+		<link rel="shortcut icon" href="https://omega-terrain-213602.appspot.com/images/favicon.ico">
+		<link rel="stylesheet" href="https://omega-terrain-213602.appspot.com/css/style.css">
+		<link rel="stylesheet" href="https://omega-terrain-213602.appspot.com/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://omega-terrain-213602.appspot.com/css/font-awesome.min.css">
+		
+
+		
+		<link href="https://omega-terrain-213602.appspot.com/index.xml" rel="alternate" type="application/rss+xml" title="Bean Boat" />
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://omega-terrain-213602.appspot.com/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://omega-terrain-213602.appspot.com/posts'>Archive</a>
+	<a href='https://omega-terrain-213602.appspot.com/tags'>Tags</a>
+	<a href='https://omega-terrain-213602.appspot.com/about'>About</a>
+
+	
+
+	
+	<a class="cta" href="https://omega-terrain-213602.appspot.com/index.xml">Subscribe</a>
+	
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        notes_for_computer_networking_a_topdown_approach
+                    </h1>
+                    <h2 class="headline">
+                    Oct 5, 2018 00:00
+                    · 303 words
+                    · 2 minute read
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="https://omega-terrain-213602.appspot.com/tags/computer_network">computer_network</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#concepts">Concepts</a></li>
+<li><a href="#the-network-core">The Network Core</a>
+<ul>
+<li><a href="#packet-switching">Packet Switching</a></li>
+<li><a href="#circuit-switching">Circuit Switching</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+                <section id="post-body">
+                    <h2 id="concepts">Concepts</h2>
+
+<ul>
+<li><p><strong>Protocol</strong>: A protocol defines the format and the order of messages exchanged between two or more communicating entities, as well as the actions taken on the transmission and/or receipt of a message or other event.</p>
+
+<ul>
+<li>hardware-implemented protocols in two physically connected computers control the flow of bits on the “wire” between the two network interface cards</li>
+<li>congestion-control protocols in end systems control the rate at which packets are transmitted between sender and receiver</li>
+<li>protocols in routers determine a packet’s path from source to destination.
+</li>
+</ul></li>
+
+<li><p><strong>Access Networks</strong>: the network that physically connects an end system to the first router on a path from the end system to any other distant end system.</p>
+
+<ul>
+<li>Types: digital subscriber line (DSL), cable, fiber to the home(FTTH), satellite link, local area network(LAN)(including Ethernet and WiFi)</li>
+</ul></li>
+</ul>
+
+<h2 id="the-network-core">The Network Core</h2>
+
+<h3 id="packet-switching">Packet Switching</h3>
+
+<ul>
+<li>Definition: A packet switch takes a packet arriving on one of its incoming communication links and forwards that packet on one of its outgoing communication links</li>
+<li>Types: router and link layer switches</li>
+<li><strong>store-and-forward transmission</strong>: packet switch must receive the entire packet before it can begin to transmit the first bit of the packet onto the outbound link.
+
+<ul>
+<li>packets suffer output buffer queuing delays</li>
+<li>packet loss: an arriving packet may find the buffer is completely full with other packets waiting for transmission, either the arriving packet or one of the alreday-queued packets will be dropped.</li>
+</ul></li>
+<li>Forwarding table in Internet: each router has a forwarding table that maps destination address to that router&rsquo;s outbound links</li>
+<li>Advantages:
+
+<ul>
+<li>offers better sharing of transmission capacity than circuit switching</li>
+<li>simpler, more efficient, and less costly to implement than circuit switching</li>
+</ul></li>
+</ul>
+
+<h3 id="circuit-switching">Circuit Switching</h3>
+
+<ul>
+<li>Definition: the resources needed along a path (buffers, link transmission rate) to provide for communication between the end systems are reserved for the duration of the communication session between the end systems</li>
+</ul>
+                </section>
+            </article>
+
+            
+                <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fomega-terrain-213602.appspot.com%2fposts%2fnotes_for_computer_networking_a_topdown_approach%2f - notes_for_computer_networking_a_topdown_approach by @your_twitter_id"><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+            
+
+            
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://www.github.com/jinmmin">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+       © Copyright 2018 <i class="fa fa-heart" aria-hidden="true"></i> Minmin
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script src="https://omega-terrain-213602.appspot.com/js/jquery-3.3.1.min.js"></script>
+<script src="https://omega-terrain-213602.appspot.com/js/main.js"></script>
+<script src="https://omega-terrain-213602.appspot.com/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+
+
+    </body>
+</html>

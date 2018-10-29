@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Computer_network on Bean Boat</title>
+    <link>https://omega-terrain-213602.appspot.com/tags/computer_network/</link>
+    <description>Recent content in Computer_network on Bean Boat</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 05 Oct 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://omega-terrain-213602.appspot.com/tags/computer_network/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>notes_for_computer_networking_a_topdown_approach</title>
+      <link>https://omega-terrain-213602.appspot.com/posts/notes_for_computer_networking_a_topdown_approach/</link>
+      <pubDate>Fri, 05 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://omega-terrain-213602.appspot.com/posts/notes_for_computer_networking_a_topdown_approach/</guid>
+      <description>&lt;h2 id=&#34;concepts&#34;&gt;Concepts&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Protocol&lt;/strong&gt;: A protocol defines the format and the order of messages exchanged between two or more communicating entities, as well as the actions taken on the transmission and/or receipt of a message or other event.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;hardware-implemented protocols in two physically connected computers control the flow of bits on the “wire” between the two network interface cards&lt;/li&gt;
+&lt;li&gt;congestion-control protocols in end systems control the rate at which packets are transmitted between sender and receiver&lt;/li&gt;
+&lt;li&gt;protocols in routers determine a packet’s path from source to destination.
+&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Access Networks&lt;/strong&gt;: the network that physically connects an end system to the first router on a path from the end system to any other distant end system.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

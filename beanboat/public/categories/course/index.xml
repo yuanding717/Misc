@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Course on Bean Boat</title>
+    <link>https://omega-terrain-213602.appspot.com/categories/course/</link>
+    <description>Recent content in Course on Bean Boat</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 14 Oct 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://omega-terrain-213602.appspot.com/categories/course/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>notes_for_Princeton_COS418_Distributed_Systems</title>
+      <link>https://omega-terrain-213602.appspot.com/posts/notes_for_princeton_cos418_distributed_systems/</link>
+      <pubDate>Sun, 14 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://omega-terrain-213602.appspot.com/posts/notes_for_princeton_cos418_distributed_systems/</guid>
+      <description>&lt;h2 id=&#34;rpc&#34;&gt;RPC&lt;/h2&gt;
+
+&lt;h3 id=&#34;asynchronous-rpc&#34;&gt;Asynchronous RPC&lt;/h3&gt;
+
+&lt;p&gt;Await RPC response in a separate thread
+Multiple ways to implement this:
+Pass a callback to RPC that will be invoked later
+Use channels to communicate RPC reply back to main thread
+&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
