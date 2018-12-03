@@ -1,0 +1,116 @@
+" Enable modern Vim features not compatible with Vi spec.
+set nocompatible
+filetype off
+
+set rtp+=~/.vim/bundle/Vundle.vim
+if isdirectory(expand('$HOME/.vim/bundle/Vundle.vim'))
+  call vundle#begin()
+  " Required
+  Plugin 'VundleVim/Vundle.vim'
+  " Install plugins that come from github.  Once Vundle is installed, these can be
+  " installed with :PluginInstall
+  Plugin 'vim-syntastic/syntastic'
+"  Plugin 'Valloric/YouCompleteMe'
+  " Fuzzy file, buffer, mru, tag, etc finder
+  " Plugin 'kien/ctrlp.vim'
+  " Plugin 'scrooloose/nerdcommenter'
+  " Plugin 'Valloric/MatchTagAlways'
+  " Supports remote and local directory browsing, 
+  " and supports  editing files across the network 
+  " Plugin 'vim-scripts/netrw.vim'
+  " Plugin 'tpope/vim-sensible'
+  " Plugin 'SirVer/ultisnips'
+  " Plugin 'honza/vim-snippets'
+
+  " Plugin 'google/vim-maktaba'
+  " Plugin 'google/vim-codefmt'
+  " Also add Glaive, which is used to configure codefmt's maktaba flags. See
+  " " `:help :Glaive` for usage.
+  " Plugin 'google/vim-glaive' 
+  call vundle#end()
+  " call glaive#Install()
+  " Optional: Enable codefmt's default mappings on the <Leader>= prefix.
+  " Glaive codefmt plugin[mappings]
+else
+  echomsg 'Vundle is not installed. You can install Vundle from'
+      \ 'https://github.com/VundleVim/Vundle.vim'
+endif
+
+" augroup autoformat_settings
+"   autocmd FileType bzl AutoFormatBuffer buildifier
+"   autocmd FileType go AutoFormatBuffer gofmt
+"   autocmd FileType borg,gcl,patchpanel AutoFormatBuffer gclfmt
+"   autocmd FileType proto AutoFormatBuffer clang-format
+"   autocmd FileType dart AutoFormatBuffer dartfmt
+"   autocmd FileType java AutoFormatBuffer google-java-format
+"   autocmd FileType markdown AutoFormatBuffer mdformat
+"   autocmd FileType python AutoFormatBuffer pyformat
+" "  See go/vim/plugins/codefmt-google, :help codefmt-google and :help codefmt
+" "  for details about other available formatters.
+" augroup END
+
+" :RelatedFilesWindow, <Leader>r
+" Glug relatedfiles plugin[mappings]
+
+" Enable file type based indent configuration and syntax highlighting.
+" Note that when code is pasted via the terminal, vim by default does not detect
+" that the code is pasted (as opposed to when using vim's paste mappings), which
+" leads to incorrect indentation when indent mode is on.
+" To work around this, use ":set paste" / ":set nopaste" to toggle paste mode.
+" You can also use a plugin to:
+" - enter insert mode with paste (https://github.com/tpope/vim-unimpaired)
+" - auto-detect pasting (https://github.com/ConradIrwin/vim-bracketed-paste)
+filetype plugin indent on
+syntax on
+
+" show existing tab with 4 spaces width
+" set tabstop=4
+" " when indenting with '>', use 4 spaces width
+" set shiftwidth=4
+" " On pressing tab, insert 4 spaces
+" set expandtab
+
+" auto add comment on newline
+" set fo+=r
+
+" set incremental (as U type) search
+set incsearch
+
+"enable modelines
+set modeline
+
+" break too long lines, visual display only
+set wrap
+" break at word boundary instead of anywhere in the string
+set linebreak
+
+" display the current mode and partially-typed commands in the status line
+set showmode
+set showcmd
+
+" have fifty lines of command-line (etc) history
+set history=100
+
+" have the mouse enabled all the time
+set mouse=a
+
+" enable backspace
+set backspace=indent,eol,start
+
+" nice line numbers
+set number
+
+" show ruler
+set ruler
+
+" highlight search
+set hlsearch
+
+" enable spell check
+set spell
+
+" utf8 encoding
+set encoding=utf-8
+
+" always show status line
+set laststatus=2
